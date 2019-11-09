@@ -15,7 +15,8 @@
 - synchronous.read.patial.js -treveling chunk by chunk through file in right order [link][6]
 - file.descriptor.error.js -opens a lot of files, and example how bad is not closing files after opening them [link][7]
 - asynchronous.write.js -write string to file, but overwrite it [link][8]
-- asynchronous.append.js -s [link][9]
+- asynchronous.append.js -append chunk async [link][9]
+- create.index.js -Takes all files from read folder and create new index.js file with module exports sighniture [link][10]
 
 ---
 
@@ -72,3 +73,4 @@ as append synch
 [7]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/read/synchronous.read.patial.js 'bad file opening'
 [8]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/asynchronous.write.js 'async write to file'
 [9]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/asynchronous.append.js 'async write to file'
+[10]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/create.index.js 'async write to file'
