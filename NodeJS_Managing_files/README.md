@@ -29,14 +29,17 @@
 
 Any time you have a file descriptor, you are responsible for closing the file.
 **No need to Close**
-readFile("data.csv", "utf8", (err, data) => {
 
-        })
+        readFile("data.csv", "utf8", (err, data) => {
+
+                        })
+
 
 **Need to close, becouse we pass file descriptor**
-readFile(fs, "utf8", (err, data) => {
 
-        })
+        readFile(fs, "utf8", (err, data) => {
+
+                        })
 
 **File Flags:**
 
