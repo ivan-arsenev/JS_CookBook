@@ -6,6 +6,7 @@ const stream = createReadStream('./data/app.log', {
 });
 
 const writer = createWriteStream('./data/output.log');
+
 let iteration = 0;
 stream.on('data', data => {
   stream.pause();
@@ -18,3 +19,4 @@ stream.on('data', data => {
 });
 
 // also you could use pipe for big files
+stream.pipe(writer);
