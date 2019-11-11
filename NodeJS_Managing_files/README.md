@@ -1,5 +1,12 @@
 # This some summary of course on working files with node.js
 
+## What covered in this repo:
+
+1. Reading a file
+2. Managing a file
+3. Writing to a file
+4. Handling streams
+
 ## Reasons to Read a File
 
 1. Load data into database
@@ -17,6 +24,8 @@
 - asynchronous.write.js -write string to file, but overwrite it [link][8]
 - asynchronous.append.js -append chunk async [link][9]
 - create.index.js -Takes all files from read folder and create new index.js file with module exports sighniture [link][10]
+- write.index.js -Using stream to write data to file[link][11]
+- read.index.js -Using stream to read data from file[link][12]
 
 ---
 
@@ -25,21 +34,19 @@
 
 ---
 
-#### Any time you have a file descriptor, you are responsible for closing the file
+### Any time you have a file descriptor, you are responsible for closing the file
 
-Any time you have a file descriptor, you are responsible for closing the file.
 **No need to Close**
 
         readFile("data.csv", "utf8", (err, data) => {
 
-                        })
-
+        })
 
 **Need to close, becouse we pass file descriptor**
 
         readFile(fs, "utf8", (err, data) => {
 
-                        })
+        })
 
 **File Flags:**
 
@@ -77,3 +84,5 @@ as append synch
 [8]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/asynchronous.write.js 'async write to file'
 [9]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/asynchronous.append.js 'async write to file'
 [10]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/create.index.js 'async write to file'
+[11]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/write.stream.js 'async write to file'
+[12]: https://github.com/ivan-arsenev/JS_CookBook/blob/master/NodeJS_Managing_files/read.stream.js 'async write to file'
