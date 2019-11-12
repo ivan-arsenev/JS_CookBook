@@ -3,20 +3,31 @@ import './TodoListItem.css';
 
 export default class TodoListItem extends Component {
   render() {
-    const { label, important = false } = this.props;
-    const style = {
-      color: important ? 'steelblue' : 'black',
-      fontWheight: important ? 'bold' : 'normal'
-    };
+    const {
+      label,
+      onDeleted,
+      onToggleDone,
+      onToggleImportant,
+      done,
+      important
+    } = this.props;
+
+    let classNames = 'todo-list-item';
+
+    if (done) classNames += ' done';
+
+    if (important) classNames += ' important';
+
     return (
-      <span className='todo-list-item'>
-        <span className='todo-list-item-label' style={style}>
+      <span className={classNames}>
+        <span className='todo-list-item-label' onClick={onToggleDone}>
           {label}
         </span>
 
         <button
           type='button'
           className='btn btn-outline-success btn-sm float-right'
+          onClick={onToggleImportant}
         >
           <i className='fa fa-exclamation' />
         </button>
@@ -24,6 +35,7 @@ export default class TodoListItem extends Component {
         <button
           type='button'
           className='btn btn-outline-danger btn-sm float-right'
+          onClick={onDeleted}
         >
           <i className='fa fa-trash-o' />
         </button>
@@ -31,31 +43,3 @@ export default class TodoListItem extends Component {
     );
   }
 }
-
-// const TodoListItemFunc = ({ label, important = false }) => {
-//   const style = {
-//     color: important ? 'steelblue' : 'black',
-//     fontWheight: important ? 'bold' : 'normal'
-//   };
-//   return (
-//     <span className='todo-list-item'>
-//       <span className='todo-list-item-label' style={style}>
-//         {label}
-//       </span>
-
-//       <button
-//         type='button'
-//         className='btn btn-outline-success btn-sm float-right'
-//       >
-//         <i className='fa fa-exclamation' />
-//       </button>
-
-//       <button
-//         type='button'
-//         className='btn btn-outline-danger btn-sm float-right'
-//       >
-//         <i className='fa fa-trash-o' />
-//       </button>
-//     </span>
-//   );
-// };
