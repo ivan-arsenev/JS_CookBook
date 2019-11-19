@@ -11,8 +11,8 @@ export default class App extends React.Component {
   state = {
     tasks: [
       this.createTask("Done this app", "7:00 pm", 2),
-      this.createTask("Done this app", "7:00 pm", 3),
-      this.createTask("Done this app", "7:00 pm", 3),
+      this.createTask("Down some docs", null, 3),
+      this.createTask("Call boss", null, 3),
       this.createTask("Make bread")
     ],
     folders: [
