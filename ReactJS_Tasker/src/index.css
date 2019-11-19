@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+* {
+  /* allow padding added to be inside elements and margins outside of elements  */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --font-family-serif: Roboto;
+  --fonts: var(font-family-serif);
+  --main-black: #252a31;
+  --main-blue: #006cff;
+  --folder-red: #f45e6d;
+  --folder-green: #61dea4;
+  --folder-yellow: #ffe761;
+  --folder-gray: #ebeff5;
+  --transitions: all 0.3s ease 0s;
+}
+body {
+  background-color: #f4f4f4;
+  color: var(--main-black);
+  font-family: var(--font-family-serif);
+  line-height: 1.6em;
+  margin-top: 10px;
+}

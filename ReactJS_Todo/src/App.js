@@ -17,6 +17,7 @@ export default class App extends React.Component {
     term: "",
     filter: "all" // active, all , done
   };
+
   createTodoItem(label) {
     return {
       label,
