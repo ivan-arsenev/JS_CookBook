@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import ErrorButton from "../error-button/error-button";
-import SwapiService from "../../services/swapi-service";
 
 import "./item-details.css";
 
@@ -14,12 +13,9 @@ const Record = ({ item, field, label }) => {
   );
 };
 
-// naming export
 export { Record };
 
 export default class ItemDetails extends Component {
-  swapiService = new SwapiService();
-
   state = {
     item: null,
     image: null
@@ -42,7 +38,10 @@ export default class ItemDetails extends Component {
     }
 
     getData(itemId).then(item => {
-      this.setState({ item, image: getImageUrl(item) });
+      this.setState({
+        item,
+        image: getImageUrl(item)
+      });
     });
   }
 
@@ -52,21 +51,20 @@ export default class ItemDetails extends Component {
       return <span>Select a item from a list</span>;
     }
 
-    const { id, name, gender, birthYear, eyeColor } = item;
+    const { name } = item;
 
-    // props children
     return (
       <div className="item-details card">
-        <img className="item-image" src={image} alt="character" />
+        <img className="item-image" src={image} alt="item" />
 
         <div className="card-body">
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
-            {React.Children.map(this.props.children, (child, idx) => {
-              // делает так какого типа чайлд вам попался. идет по каждому чайлду и обработает null undefined
-              // React.Children упрощает обработку props.children
-              // собственно сдесь идет передача пропсов в компонент из app.js элемента Record
-              return React.cloneElement(child, { item }); // по мимо тех что копируются добавить еще свойств в дополнение
+            {// делает так какого типа чайлд вам попался. идет по каждому чайлду и обработает null undefined*
+            // React.Children упрощает обработку props.children*
+            // собственно сдесь идет передача пропсов в компонент из app.js элемента Record*
+            React.Children.map(this.props.children, child => {
+              return React.cloneElement(child, { item });
             })}
           </ul>
           <ErrorButton />

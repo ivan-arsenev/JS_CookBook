@@ -52,7 +52,6 @@ export default class SwapiService {
   };
 
   _extractId = item => {
-    console.log(item);
     const idRegExp = /\/([0-9]*)\/$/;
     return item.url.match(idRegExp)[1];
   };
