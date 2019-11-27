@@ -9,6 +9,7 @@ export default class ItemList extends Component {
     itemList: null
   };
 
+  // passing the data
   componentDidMount() {
     const { getData } = this.props;
 
@@ -19,10 +20,12 @@ export default class ItemList extends Component {
     });
   }
 
+  //render the data
   renderItems(arr) {
     return arr.map(item => {
       const { id } = item;
-      const label = this.props.children(item);
+      // const label = this.props.children(item); before we passed { i => i.name} like children
+      const label = this.props.renderItem(item);
 
       return (
         <li

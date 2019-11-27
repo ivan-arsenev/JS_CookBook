@@ -19,16 +19,22 @@ export default class PeoplePage extends Component {
     this.setState({ selectedPerson });
   };
 
+  /* 
+    renderItem - рендер функция это паттерн реакта когда вы передаете в реакт компонент функцию которая занимается рендером части этого компонента или вообще всего компонента 🐱‍💻
+  
+  */
+
   render() {
+    // элементы контейнеры
     const itemList = (
       <ItemList
         onItemSelected={this.onPersonSelected}
         getData={this.swapiService.getAllPeople}
-      >
-        {i => `${i.name} (${i.birthYear})`}
-      </ItemList>
+        renderItem={item => `${item.name} (${item.birthYear})`} // or any jsx element
+      ></ItemList>
     );
 
+    // элементы контейнеры
     const personDetails = (
       <ErrorBoundry>
         <PersonDetails personId={this.state.selectedPerson} />
