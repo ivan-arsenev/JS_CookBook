@@ -24,7 +24,7 @@ export default class ItemList extends Component {
   renderItems(arr) {
     return arr.map(item => {
       const { id } = item;
-      // const label = this.props.children(item); before we passed { i => i.name} like children
+      const labelByChild = this.props.children(item); //before we passed { i => i.name} like children
       const label = this.props.renderItem(item);
 
       return (
@@ -34,6 +34,7 @@ export default class ItemList extends Component {
           onClick={() => this.props.onItemSelected(id)}
         >
           {label}
+          {labelByChild}
         </li>
       );
     });

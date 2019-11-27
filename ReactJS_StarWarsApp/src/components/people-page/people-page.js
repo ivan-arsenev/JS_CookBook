@@ -4,6 +4,8 @@ import ItemList from "../item-list/item-list";
 import PersonDetails from "../person-details/person-details";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row";
+
+// компонет отвечающий за ошибки
 import ErrorBoundry from "../error-boundry";
 
 import "./people-page.css";
@@ -25,22 +27,25 @@ export default class PeoplePage extends Component {
   */
 
   render() {
-    // элементы контейнеры
+    // свойства элементы
     const itemList = (
       <ItemList
         onItemSelected={this.onPersonSelected}
         getData={this.swapiService.getAllPeople}
-        renderItem={item => `${item.name} (${item.birthYear})`} // or any jsx element
-      ></ItemList>
+        renderItem={item => `${item.name}`} // or any jsx element
+      >
+        {item => ` (${item.birthYear} 🌠)`}
+      </ItemList>
     );
 
-    // элементы контейнеры
+    // свойства элементы
     const personDetails = (
       <ErrorBoundry>
         <PersonDetails personId={this.state.selectedPerson} />
       </ErrorBoundry>
     );
 
+    //
     return <Row left={itemList} right={personDetails} />;
   }
 }
