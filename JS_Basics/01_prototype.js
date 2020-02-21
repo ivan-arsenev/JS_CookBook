@@ -18,6 +18,9 @@ function Driver(name, license, age, category) {
     console.log(`${name} is driving now.🚗`);
   };
 }
+Driver.prototype.getLicense = function() {
+  console.log(`Licence : NONE`);
+};
 // Функция наследний от Driver
 function TrackDriver(name, license, age, category, typeOfCar) {
   Driver.call(this, name, license, age, category);
@@ -28,11 +31,15 @@ TrackDriver.prototype = Object.create(Driver.prototype);
 TrackDriver.prototype.getTypeOfCar = function() {
   console.log(`Type of car: ${this.typeOfCar}`);
 };
-
+TrackDriver.prototype.getLicense = function() {
+  console.log(`License: ${this.license}`);
+};
 // Наш новый водитель
 var bobTrackDriver = new TrackDriver("Bob", true, 34, "C", "Track 🚚");
 
 bobTrackDriver.getName();
 bobTrackDriver.getTypeOfCar();
+bobTrackDriver.getLicense();
 bobTrackDriver.getAge();
 bobTrackDriver.drive();
+
