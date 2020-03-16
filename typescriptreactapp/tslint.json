@@ -1,0 +1,14 @@
+{
+    "defaultSeverity": "warning",
+    "extends": ["tslint:recommended"],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "config/**/*.js",
+            "node_modules/**/*.ts",
+            "coverage/lcov-report/*.js"
+        ]
+    }
+}
