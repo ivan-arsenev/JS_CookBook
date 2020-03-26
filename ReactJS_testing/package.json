@@ -46,7 +46,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-router-server": "^4.2.2",
-    "react-test-renderer": "^16.8.6",
+    "react-test-renderer": "^16.13.1",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.6",
@@ -55,10 +55,9 @@
     "webpack": "^3.6.0",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.19.1"
-  },	
-    "jest": {
-		"verbose": true,
-		"testURL": "http://localhost/"
-	}
-
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  }
 }
