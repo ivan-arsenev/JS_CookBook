@@ -5,7 +5,7 @@ let util = require('util')
 let path = require("path")
 let fs = require("fs")
 
-let getStdin = require("get-stdin")
+// let getStdin = require("get-stdin")
 
 let args = require("minimist")(process.argv.slice(2), {
     boolean: ['help'],
@@ -24,26 +24,21 @@ if (args.help) {
     printHelp();
 }
 else if (args.in || args._.includes('-')) {
-    getStdin().then(processFile).catch(error)
+    processFile(process.stdin)
+
 }
 else if (args.file) {
-    fs.readFile(path.join(BASE_PATH, args.file), function onContents(err, contents) {
-        if (err) {
-            error(err.toString());
-        }
-        else {
-            processFile(contents.toString())
-        }
-    })
-
+    let stream = fs.createReadStream(path.join(BASE_PATH, args.file))
+    processFile(stream)
 }
 else {
     error("Incorrect usage.", true)
 }
 
-function processFile(contents) {
-    contents = contents.toUpperCase();
-    process.stdout.write(contents)
+function processFile(inStream) {
+    let outStream = inStream;
+    let targetStream = process.stdout
+    outStream.pipe(targetStream)
 }
 
 function error(msg, includeHelp = false) {
