@@ -6,12 +6,19 @@ let path = require("path")
 let fs = require("fs")
 let Transform = require('stream').Transform // transform stream constructor to step in meedle of stream pipe
 var zlib = require('zlib') // to compress 
-// let getStdin = require("get-stdin")
+let CAF = require('caf') // cancelable async flows? Turn a generatorthat somethings taht looks like async function and using token function for you to cancel it 
 
 let args = require("minimist")(process.argv.slice(2), {
     boolean: ['help', 'in', 'out', 'compress', 'uncompress'],
     string: ['file']
 })
+
+processFile = CAF(processFile)
+function streamComplete(stream) {
+    return new Promise((res) => {
+        stream.on('end', res)
+    })
+}
 
 let BASE_PATH = path.resolve(
     process.env.BASE_PATH || __dirname
@@ -29,18 +36,23 @@ if (args.help) {
     printHelp();
 }
 else if (args.in || args._.includes('-')) {
-    processFile(process.stdin)
+    let tooLong = CAF.timeout(13, '  Took too long!')
+    processFile(tooLong, process.stdin).catch(err => console.error(err))
 
 }
 else if (args.file) {
     let stream = fs.createReadStream(path.join(BASE_PATH, args.file))
-    processFile(stream)
+
+    let tooLong = CAF.timeout(14, '  Took too long!')
+
+    processFile(tooLong, stream).then(() => console.log("  Complete"))
+        .catch(err => console.error(err))
 }
 else {
     error("Incorrect usage.", true)
 }
 
-function processFile(inStream) {
+function* processFile(signal, inStream) {
     let outStream = inStream
 
     // this step unzip
@@ -72,6 +84,14 @@ function processFile(inStream) {
     else targetStream = fs.createWriteStream(OUTFILE); // Make a file stream to dump stream data to other file 
 
     outStream.pipe(targetStream) // pipe readable outStream to writable stram target
+
+    //tel stream to stop doing what you doing
+    signal.pr.catch(() => {
+        outStream.unpipe(targetStream)
+        outStream.destroy()
+    })
+
+    yield streamComplete(outStream)
 }
 
 function error(msg, includeHelp = false) {
