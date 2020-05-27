@@ -12,10 +12,10 @@ var sqlite3 = require("sqlite3");
 
 // ************************************
 
-const DB_PATH = path.join(__dirname,"my.db");
-const DB_SQL_PATH = path.join(__dirname,"mydb.sql");
+const DB_PATH = path.join(__dirname, "my.db");
+const DB_SQL_PATH = path.join(__dirname, "mydb.sql");
 
-var args = require("minimist")(process.argv.slice(2),{
+var args = require("minimist")(process.argv.slice(2), {
 	string: ["other",],
 });
 
@@ -36,8 +36,8 @@ async function main() {
 	var myDB = new sqlite3.Database(DB_PATH);
 	SQL3 = {
 		run(...args) {
-			return new Promise(function c(resolve,reject){
-				myDB.run(...args,function onResult(err){
+			return new Promise(function c(resolve, reject) {
+				myDB.run(...args, function onResult(err) {
 					if (err) reject(err);
 					else resolve(this);
 				});
@@ -48,8 +48,9 @@ async function main() {
 		exec: util.promisify(myDB.exec.bind(myDB)),
 	};
 
-	var initSQL = fs.readFileSync(DB_SQL_PATH,"utf-8");
-	// TODO: initialize the DB structure
+	var initSQL = fs.readFileSync(DB_SQL_PATH, "utf-8");
+
+	await SQL3.exec(initSQL);
 
 
 	var other = args.other;
@@ -58,8 +59,66 @@ async function main() {
 	// ***********
 
 	// TODO: insert values and print all records
+	let otherID = await insertOrLookupOther(other);
+
+	if (otherID) {
+		let result = await insertSomething(otherID, something)
+		if (result) {
+			return;
+		}
+	}
 
 	error("Oops!");
+}
+
+async function insertOrLookupOther(other) {
+	let result = await SQL3.get(
+		`
+		SELECT
+			id
+		FROM
+			Other
+		WHERE
+			data = ?
+		`,
+		other
+	);
+
+	if (result && result.id) {
+		return result.id
+	}
+	else {
+		result = await SQL3.run(
+			`
+				INSERT INTO
+					Other (data)
+				VALUES
+					(?)
+				
+			`,
+			other
+		);
+		if (result && result.lastID) {
+			return result.lastID
+		}
+	}
+}
+
+async function insertSomething(otherID, something) {
+	let result = await SQL3.run(
+		`
+			INSERT INTO
+				Other (data)
+			VALUES
+				(?)
+			WHERE 
+				id = ?
+		`,
+		something,
+		otherID
+	)
+	if (result && result.lastID) return result.lastID
+	else return null
 }
 
 function error(err) {
