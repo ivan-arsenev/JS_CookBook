@@ -5,3 +5,8 @@ so using pipe command | we tell that created cat files/hello.txt as stnoutput wi
 
 Good book about streams in node 
 https://github.com/substack/stream-handbook
+
+ex1 - Begining code of working with node
+ex2 - CLI + file read streams
+ex3 - Streams and how they works + Zip
+ex4 - how to use database(sql3)
